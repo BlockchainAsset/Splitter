@@ -15,6 +15,11 @@ contract Stoppable is Owned {
         _;
     }
 
+    modifier onlyIfPaused {
+        require(!isRunning, "Contract is Running at the moment");
+        _;
+    }
+
     constructor(bool startState) public {
         isRunning = startState;
     }
@@ -25,7 +30,7 @@ contract Stoppable is Owned {
         return true;
     }
 
-    function resumeContract() public onlyOwner returns(bool success){
+    function resumeContract() public onlyOwner onlyIfPaused returns(bool success){
         require(!isRunning, "Contract is already paused");
         isRunning = true;
         emit LogResumedContract(msg.sender);
