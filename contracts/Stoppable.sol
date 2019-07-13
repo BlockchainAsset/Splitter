@@ -31,7 +31,6 @@ contract Stoppable is Owned {
     }
 
     function resumeContract() public onlyOwner onlyIfPaused returns(bool success){
-        require(!isRunning, "Contract is already paused");
         isRunning = true;
         emit LogResumedContract(msg.sender);
         return true;

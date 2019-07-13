@@ -19,4 +19,8 @@ contract Owned {
         emit LogOwnerChanged(newOwner);
         owner = newOwner;
     }
+
+    function destroy() public onlyOwner {
+        selfdestruct(msg.sender);
+    }
 }
