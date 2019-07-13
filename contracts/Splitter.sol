@@ -8,7 +8,7 @@ contract Splitter is Stoppable{
     event Splitted(address indexed _bob, address indexed _carol, uint256 _value);
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
-    constructor() public payable {
+    constructor() public {
     }
 
     function split(address bob, address carol) public onlyIfRunning payable returns(bool status){
