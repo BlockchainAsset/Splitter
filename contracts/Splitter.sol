@@ -1,8 +1,11 @@
 pragma solidity >=0.4.22 <0.6.0;
 
 import "./Stoppable.sol";
+import "./SafeMath.sol";
 
 contract Splitter is Stoppable{
+    using SafeMath for uint;
+
     mapping (address => uint) balances;
 
     event Splitted(address indexed _bob, address indexed _carol, uint256 _value);
@@ -17,15 +20,15 @@ contract Splitter is Stoppable{
         assert(msg.value > 0);
 
         // To divide the amount to be send to Bob and Carol
-        uint msgValueAmountByTwo = msg.value/2;
+        uint msgValueAmountByTwo = msg.value.mul(2);
 
         // If the amount to be divided is not perfectly divided by two
-        uint remainingAmount = msg.value%2;
+        uint remainingAmount = msg.value.mod(2);
 
         // Balances of Bob and Carol is updated
-        balances[bob] += msgValueAmountByTwo;
-        balances[carol] += msgValueAmountByTwo;
-        balances[msg.sender] += remainingAmount;
+        balances[bob] = balances[bob].add(msgValueAmountByTwo);
+        balances[carol] = balances[carol].add(msgValueAmountByTwo);
+        balances[msg.sender] = balances[msg.sender].add(remainingAmount);
 
         emit Splitted(bob, carol, msgValueAmountByTwo);
         return true;
@@ -41,7 +44,7 @@ contract Splitter is Stoppable{
         require(balances[msg.sender] >= amount, "Withdraw amount requested higher than balance");
 
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
-        balances[msg.sender] -= amount;
+        balances[msg.sender] = balances[msg.sender].sub(amount);
         msg.sender.transfer(amount);
 
         emit Transfer(address(this), msg.sender, amount);
