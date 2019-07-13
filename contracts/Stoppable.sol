@@ -15,8 +15,8 @@ contract Stoppable is Owned {
         _;
     }
 
-    constructor() public {
-        isRunning = true;
+    constructor(bool startState) public {
+        isRunning = startState;
     }
 
     function pauseContract() public onlyOwner onlyIfRunning returns(bool success){
