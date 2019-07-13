@@ -40,11 +40,15 @@ contract Splitter is Stoppable{
 
     // https://stackoverflow.com/a/52438518/7520013
     function withdraw(uint amount) public onlyIfRunning returns(bool status){
-        require(balances[msg.sender] > 0, "Nothing to withdraw");
-        require(balances[msg.sender] >= amount, "Withdraw amount requested higher than balance");
+        require(amount > 0, "Zero can't be withdrawn");
+
+        uint balance = balances[msg.sender];
+
+        require(balance > 0, "Nothing to withdraw");
+        require(balance >= amount, "Withdraw amount requested higher than balance");
 
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
-        balances[msg.sender] = balances[msg.sender].sub(amount);
+        balances[msg.sender] = balance.sub(amount);
         msg.sender.transfer(amount);
 
         emit Transfer(address(this), msg.sender, amount);
