@@ -2,7 +2,7 @@ pragma solidity >=0.4.22 <0.6.0;
 
 // Owned code taken from B9Lab Module 3 Solidity Elements
 contract Owned {
-    address public owner;
+    address private owner;
 
     event LogOwnerChanged(address indexed previousOwner, address newOwner);
 
