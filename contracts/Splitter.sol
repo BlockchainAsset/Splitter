@@ -49,9 +49,10 @@ contract Splitter is Stoppable{
 
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
         balances[msg.sender] = balance.sub(amount);
-        msg.sender.transfer(amount);
 
         emit Transfer(address(this), msg.sender, amount);
+
+        msg.sender.transfer(amount);
         return true;
     }
 }
