@@ -16,14 +16,16 @@ contract Splitter is Stoppable{
         // To check if the amount to be send is positive or not.
         assert(msg.value > 0);
 
+        // To divide the amount to be send to Bob and Carol
         uint msgValueAmountByTwo = msg.value/2;
 
-        // To check if the amount can be divided by two equally or if there is any truncated numbers
-        assert(msgValueAmountByTwo + msgValueAmountByTwo == msg.value);
+        // If the amount to be divided is not perfectly divided by two
+        uint remainingAmount = msg.value%2;
 
         // Balances of Bob and Carol is updated
         balances[bob] += msgValueAmountByTwo;
         balances[carol] += msgValueAmountByTwo;
+        balances[msg.sender] += remainingAmount;
 
         emit Splitted(bob, carol, msgValueAmountByTwo);
         return true;
