@@ -5,7 +5,7 @@ import "./Owned.sol";
 // Inspiration from B9Lab Module 3 Solidity Inheritance Screencast
 contract Stoppable is Owned {
 
-    bool isRunning;
+    bool private isRunning;
 
     event LogPausedContract(address sender);
     event LogResumedContract(address sender);
