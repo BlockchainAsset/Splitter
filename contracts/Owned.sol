@@ -15,9 +15,7 @@ contract Owned {
         owner = msg.sender;
     }
 
-    function setOwner(address newOwner) public {
-        require(msg.sender == owner, "Only an owner can transfer to a new owner");
-
+    function setOwner(address newOwner) public onlyOwner{
         emit LogOwnerChanged(newOwner);
         owner = newOwner;
     }
