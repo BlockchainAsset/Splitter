@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.6.0;
 contract Owned {
     address private owner;
 
-    event LogOwnerChanged(address indexed previousOwner, address newOwner);
+    event LogOwnerChanged(address newOwner);
 
     modifier onlyOwner {
         require(owner == msg.sender, "Only owner can use this function");
@@ -18,7 +18,7 @@ contract Owned {
     function setOwner(address newOwner) public {
         require(msg.sender == owner, "Only an owner can transfer to a new owner");
 
-        emit LogOwnerChanged(owner, newOwner);
+        emit LogOwnerChanged(newOwner);
         owner = newOwner;
     }
 }
