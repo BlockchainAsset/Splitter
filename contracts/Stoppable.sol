@@ -6,12 +6,15 @@ import "./Owned.sol";
 contract Stoppable is Owned {
 
     bool private isRunning;
+    bool private isStopped;
 
     event LogPausedContract(address sender);
     event LogResumedContract(address sender);
+    event LogStoppedContract(address sender);
 
     modifier onlyIfRunning {
         require(isRunning, "Contract is Paused at the moment");
+        require(!isStopped, "Contract is Stopped permanently");
         _;
     }
 
@@ -22,6 +25,7 @@ contract Stoppable is Owned {
 
     constructor(bool startState) public {
         isRunning = startState;
+        isStopped = false;
     }
 
     function pauseContract() public onlyOwner onlyIfRunning returns(bool success){
@@ -35,4 +39,11 @@ contract Stoppable is Owned {
         emit LogResumedContract(msg.sender);
         return true;
     }
+
+    function stopContract() public onlyOwner onlyIfPaused returns(bool success){
+        isStopped = true;
+        emit LogStoppedContract(msg.sender);
+        return true;
+    }
+
 }
