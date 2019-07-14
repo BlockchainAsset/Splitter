@@ -5,7 +5,7 @@ import "./Owned.sol";
 // Inspiration from B9Lab Module 3 Solidity Inheritance Screencast
 contract Stoppable is Owned {
 
-    bool isRunning;
+    bool private isRunning;
 
     event LogPausedContract(address sender);
     event LogResumedContract(address sender);
@@ -15,8 +15,13 @@ contract Stoppable is Owned {
         _;
     }
 
-    constructor() public {
-        isRunning = true;
+    modifier onlyIfPaused {
+        require(!isRunning, "Contract is Running at the moment");
+        _;
+    }
+
+    constructor(bool startState) public {
+        isRunning = startState;
     }
 
     function pauseContract() public onlyOwner onlyIfRunning returns(bool success){
@@ -25,8 +30,7 @@ contract Stoppable is Owned {
         return true;
     }
 
-    function resumeContract() public onlyOwner returns(bool success){
-        require(!isRunning, "Contract is already paused");
+    function resumeContract() public onlyOwner onlyIfPaused returns(bool success){
         isRunning = true;
         emit LogResumedContract(msg.sender);
         return true;
