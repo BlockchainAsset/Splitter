@@ -2,9 +2,9 @@ pragma solidity >=0.4.22 <0.6.0;
 
 // Owned code taken from B9Lab Module 3 Solidity Elements
 contract Owned {
-    address public owner;
+    address private owner;
 
-    event LogOwnerChanged(address indexed previousOwner, address newOwner);
+    event LogOwnerChanged(address newOwner);
 
     modifier onlyOwner {
         require(owner == msg.sender, "Only owner can use this function");
@@ -15,10 +15,9 @@ contract Owned {
         owner = msg.sender;
     }
 
-    function setOwner(address newOwner) public {
-        require(msg.sender == owner, "Only an owner can transfer to a new owner");
-
-        emit LogOwnerChanged(owner, newOwner);
+    function setOwner(address newOwner) public onlyOwner{
+        require(newOwner != address(0), "newOwner should be a valid address");
+        emit LogOwnerChanged(newOwner);
         owner = newOwner;
     }
 }
