@@ -13,10 +13,13 @@ contract('Splitter', (accounts) => {
   const accountOne = accounts[0];
   const accountTwo = accounts[1];
   const accountThree = accounts[2];
+  var SplitterInstance;
+
+  beforeEach(async function() {
+    splitterInstance = await Splitter.deployed();
+  });
 
   it('Should withdraw the amount correctly', async () => {
-    const splitterInstance = await Splitter.deployed();
-
     // Get initial balances of the two accounts.
     let accountTwoStartingBalance = await web3.eth.getBalance(accountTwo);
     let accountThreeStartingBalance = await web3.eth.getBalance(accountThree);

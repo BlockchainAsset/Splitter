@@ -13,10 +13,13 @@ contract('Splitter', (accounts) => {
   const accountOne = accounts[0];
   const accountTwo = accounts[1];
   const accountThree = accounts[2];
+  var SplitterInstance;
+
+  beforeEach(async function() {
+    splitterInstance = await Splitter.deployed();
+  });
 
   it('Should update the withdrawed amount in the contract correctly', async () => {
-    const splitterInstance = await Splitter.deployed();
-
     // Make transaction from first account to split function.
     await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: web3.utils.toWei(amount, "ether")});
 
