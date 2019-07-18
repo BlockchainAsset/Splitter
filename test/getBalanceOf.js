@@ -2,10 +2,12 @@ const BN = web3.utils.BN;
 
 const Splitter = artifacts.require("Splitter");
 
-const value = 1; // <-- Change ETH value to be tested here
-const amount = value.toString();
-const amountByTen = (value/10).toString();
-const amountByTwo = (value/2).toString();
+const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
+const two = new BN('2');
+const five = new BN('5');
+const ten = new BN('10');
+const amountByTwo = amount.div(two);
+const amountByTen = amount.div(ten);
 
 contract('Splitter', (accounts) => {
 
@@ -21,20 +23,20 @@ contract('Splitter', (accounts) => {
 
   it('Should update the withdrawed amount in the contract correctly', async () => {
     // Make transaction from first account to split function.
-    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: web3.utils.toWei(amount, "ether")});
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
 
     // Withdraw certain amount from accountTwo
-    await splitterInstance.withdraw(web3.utils.toWei(amountByTen, "ether"), {from: accountTwo});
+    await splitterInstance.withdraw(amountByTen, {from: accountTwo});
 
     // Withdraw complete amount from accountTwo
-    await splitterInstance.withdraw(web3.utils.toWei(amountByTwo, "ether"), {from: accountThree});
+    await splitterInstance.withdraw(amountByTwo, {from: accountThree});
 
     // Get final balances of the two accounts in Contract.
-    let accountTwoContractEndingBalance = web3.utils.fromWei(await splitterInstance.getBalanceOf.call(accountTwo), "ether");
-    let accountThreeContractEndingBalance = web3.utils.fromWei(await splitterInstance.getBalanceOf.call(accountThree), "ether");
+    let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
+    let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
-    assert.equal(accountTwoContractEndingBalance, (2*amount)/5, "Amount wasn't correctly withdrawn from Account 2");
-    assert.equal(accountThreeContractEndingBalance, 0, "Amount wasn't correctly withdrawn from Account 3");
+    assert(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
+    assert(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
   });
 
 });
