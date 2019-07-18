@@ -11,7 +11,7 @@ contract Splitter is Stoppable{
     event Splitted(address indexed _bob, address indexed _carol, uint256 _value);
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
-    constructor() public {
+    constructor(bool initialRunState) public Stoppable(initialRunState){
     }
 
     function split(address bob, address carol) public onlyIfRunning payable returns(bool status){
@@ -20,7 +20,7 @@ contract Splitter is Stoppable{
         assert(msg.value > 0);
 
         // To divide the amount to be send to Bob and Carol
-        uint msgValueAmountByTwo = msg.value.mul(2);
+        uint msgValueAmountByTwo = msg.value.div(2);
 
         // If the amount to be divided is not perfectly divided by two
         uint remainingAmount = msg.value.mod(2);
