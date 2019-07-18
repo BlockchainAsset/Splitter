@@ -17,7 +17,7 @@ contract Splitter is Stoppable{
     function split(address bob, address carol) public onlyIfRunning payable returns(bool status){
 
         // To check if the amount to be send is positive or not.
-        assert(msg.value > 0);
+        require(msg.value > 0, "Amount to be splitted should be more than 0");
 
         // To divide the amount to be send to Bob and Carol
         uint msgValueAmountByTwo = msg.value.div(2);
@@ -44,7 +44,6 @@ contract Splitter is Stoppable{
 
         uint balance = balances[msg.sender];
 
-        require(balance > 0, "Nothing to withdraw");
         require(balance >= amount, "Withdraw amount requested higher than balance");
 
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
