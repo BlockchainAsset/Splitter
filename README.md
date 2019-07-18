@@ -42,11 +42,11 @@ For more info on that, you can go to: [Truffle Configuration](https://trufflefra
 
 *If you want to interact with the contract in a particular network*, please use ```truffle console --network NetworkName```
 
-(Soon Step 6 - 8 will be available)
-
 6. To run the test, please use ```truffle test```
 
-Minimum of 3 Accounts *(accounts[0], accounts[1], accounts[2], see test/splitter.js)* should be setup with balances for contract testing.
+Minimum of 3 Accounts *(accounts[0], accounts[1], accounts[2], see test/splitter.js)* should be setup with balances for contract testing. If running `ganache-cli`, it will be taken automatically.
+
+*Step 7 - 9 will be available soon*
 
 7. For checking files in Web, please install *nodejs*
 
