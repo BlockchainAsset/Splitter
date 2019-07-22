@@ -63,4 +63,17 @@ contract('Splitter', (accounts) => {
     assert.isTrue(accountThreeEndingBalance.eq(accountThreeStartAmountGas), "Amount wasn't correctly received by Account 3");
   });
 
+  it("Should correctly emit the proper event: Transfer", async () => {
+    const splitReceipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
+    const withdrawReceipt = await splitterInstance.withdraw(amountByTwo, {from: accountTwo});
+    const log = withdrawReceipt.logs[0];
+    const splitterAddress = splitReceipt.logs[0].address;
+
+    assert.strictEqual(withdrawReceipt.logs.length, 1);
+    assert.strictEqual(log.event, "Transfer");
+    assert.strictEqual(log.args._from, splitterAddress);
+    assert.strictEqual(log.args._to, accountTwo);
+    assert.isTrue(log.args._value.eq(amountByTwo));
+  });
+
 });

@@ -105,7 +105,7 @@ contract('Splitter', (accounts) => {
     }
   })
 
-  it("Should correctly emit the proper events", async () => {
+  it("Should correctly emit the proper event: Splitted", async () => {
     const receipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
     const log = receipt.logs[0];
 
