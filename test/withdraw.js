@@ -11,13 +11,20 @@ const amountByTen = amount.div(ten);
 
 contract('Splitter', (accounts) => {
 
-  assert.isAtLeast(accounts.length, 3, "Atleast three accounts required");
-
-  // Setup 3 accounts.
-  const accountOne = accounts[0];
-  const accountTwo = accounts[1];
-  const accountThree = accounts[2];
   var SplitterInstance;
+  var accountOne, accountTwo, accountThree;
+
+  before("Preparing Accounts and Initial Checks", async function() {
+    assert.isAtLeast(accounts.length, 3, "Atleast three accounts required");
+
+    // Setup 3 accounts.
+    [accountOne, accountTwo, accountThree] = accounts;
+
+    //Checking if all accounts have atleast 2 ETH or more for test
+    assert.isTrue((new BN(await web3.eth.getBalance(accountOne))).gt(new BN(web3.utils.toWei("2"))));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountTwo))).gt(new BN(web3.utils.toWei("2"))));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountThree))).gt(new BN(web3.utils.toWei("2"))));
+  })
 
   beforeEach(async function() {
     splitterInstance = await Splitter.deployed();
