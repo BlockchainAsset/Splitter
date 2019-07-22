@@ -72,7 +72,7 @@ contract('Splitter', (accounts) => {
     }
   })
   
-  it('Should Only work if two address are given', async () => {
+  it('Should only work if two address are given', async () => {
     try
     {
       await splitterInstance.split(accountTwo, {from: accountOne, value: amount.add(one)});

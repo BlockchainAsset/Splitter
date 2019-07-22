@@ -51,4 +51,26 @@ contract('Splitter', (accounts) => {
     assert.isTrue(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
   });
 
+  it('Should only work if address is given', async () => {
+    try
+    {
+      await splitterInstance.getBalanceOf({from: accountOne});
+    }
+    catch (err)
+    {
+      assert.include(err.toString(), 'Error: Invalid number of parameters for "getBalanceOf". Got 0 expected 1!');
+    }
+  })
+
+  it('Should only work if address is valid', async () => {
+    try
+    {
+      await splitterInstance.getBalanceOf(zeroAdd, {from: accountOne});
+    }
+    catch (err)
+    {
+      assert.include(err.toString(), 'check should be a valid address');
+    }
+  })
+
 });

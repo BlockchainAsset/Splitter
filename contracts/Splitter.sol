@@ -36,14 +36,21 @@ contract Splitter is Stoppable{
 
         emit Splitted(bob, carol, msgValueAmountByTwo);
         return true;
+
     }
 
     function getBalanceOf(address check) public view returns(uint amount){
+
+        // Address should be valid
+        require(check != address(0), "check should be a valid address");
+
         return balances[check];
+
     }
 
     // https://stackoverflow.com/a/52438518/7520013
     function withdraw(uint amount) public onlyIfRunning returns(bool status){
+
         require(amount > 0, "Zero can't be withdrawn");
 
         uint balance = balances[msg.sender];
@@ -58,5 +65,6 @@ contract Splitter is Stoppable{
 
         msg.sender.transfer(amount);
         return true;
+
     }
 }
