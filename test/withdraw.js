@@ -63,8 +63,44 @@ contract('Splitter', (accounts) => {
     assert.isTrue(accountThreeEndingBalance.eq(accountThreeStartAmountGas), "Amount wasn't correctly received by Account 3");
   });
 
+  it('Should only work if amount is given', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+      await splitterInstance.withdraw({from: accountTwo});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'invalid number value');
+    }
+  })
+
+  it('Should only work if amount > 0', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+      await splitterInstance.withdraw(0, {from: accountTwo});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'Zero can\'t be withdrawn');
+    }
+  })
+
+  it('Should only work if balance > amount', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+      await splitterInstance.withdraw(amount, {from: accountTwo});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'Withdraw amount requested higher than balance');
+    }
+  })
+
   it("Should correctly emit the proper event: Transfer", async () => {
-    const splitReceipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
+    const splitReceipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
     const withdrawReceipt = await splitterInstance.withdraw(amountByTwo, {from: accountTwo});
     const log = withdrawReceipt.logs[0];
     const splitterAddress = splitReceipt.logs[0].address;

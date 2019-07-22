@@ -55,7 +55,6 @@ contract Splitter is Stoppable{
 
         uint balance = balances[msg.sender];
 
-        require(balance > 0, "Nothing to withdraw");
         require(balance >= amount, "Withdraw amount requested higher than balance");
 
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
