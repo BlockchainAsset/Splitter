@@ -94,4 +94,15 @@ contract('Splitter', (accounts) => {
     }
   })
 
+  it("Should correctly emit the proper events", async () => {
+    const receipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
+    const log = receipt.logs[0];
+
+    assert.strictEqual(receipt.logs.length, 1);
+    assert.strictEqual(log.event, "Splitted");
+    assert.strictEqual(log.args._bob, accountTwo);
+    assert.strictEqual(log.args._carol, accountThree);
+    assert.isTrue(log.args._value.eq(amountByTwo));
+  });  
+
 });
