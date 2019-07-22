@@ -16,6 +16,10 @@ contract Splitter is Stoppable{
 
     function split(address bob, address carol) public onlyIfRunning payable returns(bool status){
 
+        // Address should be valid
+        require(bob != address(0), "bob should be a valid address");
+        require(carol != address(0), "carol should be a valid address");
+
         // To check if the amount to be send is positive or not.
         assert(msg.value > 0);
 

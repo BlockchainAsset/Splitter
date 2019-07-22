@@ -40,11 +40,6 @@ contract('Splitter', (accounts) => {
     let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
     let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
-    console.log(accountTwoContractEndingBalance.toString(10));
-    console.log(amountByTwo.toString(10));
-    console.log(accountThreeContractEndingBalance.toString(10));
-    console.log(amountByTwo.toString(10));
-
     // Check if the results are correct or not
     assert.isTrue(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
     assert.isTrue(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
@@ -59,18 +54,22 @@ contract('Splitter', (accounts) => {
     let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
     let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
-    console.log(amount.add(one).toString(10));
-    console.log(accountOneContractEndingBalance);
-    console.log(one);
-    console.log(accountTwoContractEndingBalance.toString(10));
-    console.log(amountByTwo.toString(10));
-    console.log(accountThreeContractEndingBalance.toString(10));
-    console.log(amountByTwo.toString(10));
-
     // Check if the results are correct or not
     assert.isTrue(accountOneContractEndingBalance.eq(one), "Amount wasn't correctly received by Account 1");
     assert.isTrue(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
     assert.isTrue(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
+  })
+
+  it('Should Only work if two address are given', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, {from: accountOne, value: amount.add(one)});
+    }
+    catch (err)
+    {
+      console.log(err.reason);
+      assert.equal(err.reason, 'invalid address');
+    }
   })
 
 });
