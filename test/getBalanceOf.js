@@ -11,6 +11,8 @@ const amountByTen = amount.div(ten);
 
 contract('Splitter', (accounts) => {
 
+  assert.isAtLeast(accounts.length, 3, "Atleast three accounts required");
+
   // Setup 3 accounts.
   const accountOne = accounts[0];
   const accountTwo = accounts[1];
