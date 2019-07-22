@@ -61,6 +61,17 @@ contract('Splitter', (accounts) => {
     assert.isTrue(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
   })
 
+  it('Should Only work if more than 1 Wei is sent to split', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: one});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'amount should be greater than 1 wei');
+    }
+  })
+  
   it('Should Only work if two address are given', async () => {
     try
     {

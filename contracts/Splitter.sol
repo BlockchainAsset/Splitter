@@ -21,7 +21,7 @@ contract Splitter is Stoppable{
         require(carol != address(0), "carol should be a valid address");
 
         // To check if the amount to be send is positive or not.
-        assert(msg.value > 0);
+        require(msg.value > 1, "amount should be greater than 1 wei");
 
         // To divide the amount to be send to Bob and Carol
         uint msgValueAmountByTwo = msg.value.div(2);
