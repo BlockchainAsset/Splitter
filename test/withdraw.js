@@ -10,6 +10,7 @@ const ten = new BN('10');
 const amountByTwo = amount.div(two);
 const amountByTen = amount.div(ten);
 const twoEtherInWei = new BN(web3.utils.toWei("2"));
+const zeroAdd = "0x0000000000000000000000000000000000000000";
 
 contract('Splitter', (accounts) => {
 

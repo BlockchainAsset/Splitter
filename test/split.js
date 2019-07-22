@@ -10,6 +10,7 @@ const ten = new BN('10');
 const amountByTwo = amount.div(two);
 const amountByTen = amount.div(ten);
 const twoEtherInWei = new BN(web3.utils.toWei("2"));
+const zeroAdd = "0x0000000000000000000000000000000000000000";
 
 contract('Splitter', (accounts) => {
 
@@ -67,8 +68,29 @@ contract('Splitter', (accounts) => {
     }
     catch (err)
     {
-      console.log(err.reason);
       assert.equal(err.reason, 'invalid address');
+    }
+  })
+
+  it('Should Only work if First Address is valid', async () => {
+    try
+    {
+      await splitterInstance.split(zeroAdd, accountThree, {from: accountOne, value: amount.add(one)});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'bob should be a valid address');
+    }
+  })
+
+  it('Should Only work if Second Address is valid', async () => {
+    try
+    {
+      await splitterInstance.split(accountTwo, zeroAdd, {from: accountOne, value: amount.add(one)});
+    }
+    catch (err)
+    {
+      assert.equal(err.reason, 'carol should be a valid address');
     }
   })
 
