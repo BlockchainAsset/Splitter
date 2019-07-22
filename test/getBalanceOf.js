@@ -3,11 +3,13 @@ const BN = web3.utils.BN;
 const Splitter = artifacts.require("Splitter");
 
 const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
+const one = new BN('1');
 const two = new BN('2');
 const five = new BN('5');
 const ten = new BN('10');
 const amountByTwo = amount.div(two);
 const amountByTen = amount.div(ten);
+const twoEtherInWei = new BN(web3.utils.toWei("2"));
 
 contract('Splitter', (accounts) => {
 
@@ -21,13 +23,13 @@ contract('Splitter', (accounts) => {
     [accountOne, accountTwo, accountThree] = accounts;
 
     //Checking if all accounts have atleast 2 ETH or more for test
-    assert.isTrue((new BN(await web3.eth.getBalance(accountOne))).gt(new BN(web3.utils.toWei("2"))));
-    assert.isTrue((new BN(await web3.eth.getBalance(accountTwo))).gt(new BN(web3.utils.toWei("2"))));
-    assert.isTrue((new BN(await web3.eth.getBalance(accountThree))).gt(new BN(web3.utils.toWei("2"))));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountOne))).gt(twoEtherInWei));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountTwo))).gt(twoEtherInWei));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountThree))).gt(twoEtherInWei));
   })
 
   beforeEach(async function() {
-    splitterInstance = await Splitter.deployed();
+    splitterInstance = await Splitter.new({ from: accountOne});
   });
 
   it('Should update the withdrawed amount in the contract correctly', async () => {
