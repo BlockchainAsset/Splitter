@@ -35,8 +35,8 @@ contract('Splitter', (accounts) => {
     let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
     let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
-    assert(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
-    assert(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
+    assert.isTrue(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
+    assert.isTrue(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
   });
 
 });

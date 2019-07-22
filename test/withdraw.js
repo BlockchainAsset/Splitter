@@ -47,8 +47,8 @@ contract('Splitter', (accounts) => {
     let accountThreeStartAmountGas = amountByTen.add(accountThreeStartingBalance).sub(accountThreeWithdrawGasUsed.mul(accountThreeWithdrawGasPrice));
 
     // Check if the results are correct or not
-    assert(accountTwoEndingBalance.eq(accountTwoStartAmountGas), "Amount wasn't correctly received by Account 2");
-    assert(accountThreeEndingBalance.eq(accountThreeStartAmountGas), "Amount wasn't correctly received by Account 3");
+    assert.isTrue(accountTwoEndingBalance.eq(accountTwoStartAmountGas), "Amount wasn't correctly received by Account 2");
+    assert.isTrue(accountThreeEndingBalance.eq(accountThreeStartAmountGas), "Amount wasn't correctly received by Account 3");
   });
 
 });

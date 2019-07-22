@@ -30,8 +30,8 @@ contract('Splitter', (accounts) => {
     const accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
     // Check if the results are correct or not
-    assert(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
-    assert(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
+    assert.isTrue(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
+    assert.isTrue(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
   });
 
 });
