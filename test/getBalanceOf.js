@@ -3,22 +3,34 @@ const BN = web3.utils.BN;
 const Splitter = artifacts.require("Splitter");
 
 const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
+const one = new BN('1');
 const two = new BN('2');
 const five = new BN('5');
 const ten = new BN('10');
 const amountByTwo = amount.div(two);
 const amountByTen = amount.div(ten);
+const twoEtherInWei = new BN(web3.utils.toWei("2"));
+const zeroAdd = "0x0000000000000000000000000000000000000000";
 
 contract('Splitter', (accounts) => {
 
-  // Setup 3 accounts.
-  const accountOne = accounts[0];
-  const accountTwo = accounts[1];
-  const accountThree = accounts[2];
   var SplitterInstance;
+  var accountOne, accountTwo, accountThree;
+
+  before("Preparing Accounts and Initial Checks", async function() {
+    assert.isAtLeast(accounts.length, 3, "Atleast three accounts required");
+
+    // Setup 3 accounts.
+    [accountOne, accountTwo, accountThree] = accounts;
+
+    //Checking if all accounts have atleast 2 ETH or more for test
+    assert.isTrue((new BN(await web3.eth.getBalance(accountOne))).gt(twoEtherInWei));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountTwo))).gt(twoEtherInWei));
+    assert.isTrue((new BN(await web3.eth.getBalance(accountThree))).gt(twoEtherInWei));
+  })
 
   beforeEach(async function() {
-    splitterInstance = await Splitter.deployed();
+    splitterInstance = await Splitter.new({ from: accountOne});
   });
 
   it('Should update the withdrawed amount in the contract correctly', async () => {
@@ -35,8 +47,30 @@ contract('Splitter', (accounts) => {
     let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
     let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
 
-    assert(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
-    assert(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
+    assert.isTrue(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
+    assert.isTrue(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
   });
+
+  it('Should only work if address is given', async () => {
+    try
+    {
+      await splitterInstance.getBalanceOf({from: accountOne});
+    }
+    catch (err)
+    {
+      assert.include(err.toString(), 'Error: Invalid number of parameters for "getBalanceOf". Got 0 expected 1!');
+    }
+  })
+
+  it('Should only work if address is valid', async () => {
+    try
+    {
+      await splitterInstance.getBalanceOf(zeroAdd, {from: accountOne});
+    }
+    catch (err)
+    {
+      assert.include(err.toString(), 'check should be a valid address');
+    }
+  })
 
 });
