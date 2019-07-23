@@ -100,7 +100,7 @@ contract('Splitter', (accounts) => {
 
     assert.strictEqual(withdrawReceipt.logs.length, 1);
     assert.strictEqual(log.event, "Transfered");
-    assert.strictEqual(log.args.from, splitterAddress);
+    assert.strictEqual(log.address, splitterAddress);
     assert.strictEqual(log.args.to, accountTwo);
     assert.isTrue(log.args.value.eq(amountByTwo));
   });
