@@ -41,9 +41,6 @@ contract Splitter is Stoppable{
 
     function getBalanceOf(address check) public view returns(uint amount){
 
-        // Address should be valid
-        require(check != address(0), "check should be a valid address");
-
         return balances[check];
 
     }

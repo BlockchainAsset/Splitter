@@ -62,15 +62,4 @@ contract('Splitter', (accounts) => {
     }
   })
 
-  it('Should only work if address is valid', async () => {
-    try
-    {
-      await splitterInstance.getBalanceOf(zeroAdd, {from: accountOne});
-    }
-    catch (err)
-    {
-      assert.include(err.toString(), 'check should be a valid address');
-    }
-  })
-
 });
