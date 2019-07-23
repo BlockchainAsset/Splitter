@@ -2,6 +2,8 @@ const BN = web3.utils.BN;
 
 const Splitter = artifacts.require("Splitter");
 
+const truffleAssert = require('truffle-assertions');
+
 const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
 const one = new BN('1');
 const two = new BN('2');
@@ -63,17 +65,44 @@ contract('Splitter', (accounts) => {
     assert.isTrue(accountThreeEndingBalance.eq(accountThreeStartAmountGas), "Amount wasn't correctly received by Account 3");
   });
 
+  it('Should only work if amount is given', async () => {
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw({from: accountTwo}),
+      null,
+      'invalid number value'
+    );
+  })
+
+  it('Should only work if amount > 0', async () => {
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw(0, {from: accountTwo}),
+      null,
+      'Zero can\'t be withdrawn'
+    );
+  })
+
+  it('Should only work if balance > amount', async () => {
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw(amount, {from: accountTwo}),
+      null,
+      'Withdraw amount requested higher than balance'
+    );
+  })
+
   it("Should correctly emit the proper event: Transfer", async () => {
-    const splitReceipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
+    const splitReceipt = await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
     const withdrawReceipt = await splitterInstance.withdraw(amountByTwo, {from: accountTwo});
     const log = withdrawReceipt.logs[0];
     const splitterAddress = splitReceipt.logs[0].address;
 
     assert.strictEqual(withdrawReceipt.logs.length, 1);
-    assert.strictEqual(log.event, "Transfer");
-    assert.strictEqual(log.args._from, splitterAddress);
-    assert.strictEqual(log.args._to, accountTwo);
-    assert.isTrue(log.args._value.eq(amountByTwo));
+    assert.strictEqual(log.event, "Transfered");
+    assert.strictEqual(log.address, splitterAddress);
+    assert.strictEqual(log.args.to, accountTwo);
+    assert.isTrue(log.args.value.eq(amountByTwo));
   });
 
 });

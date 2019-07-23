@@ -44,8 +44,8 @@ contract('Splitter', (accounts) => {
     await splitterInstance.withdraw(amountByTwo, {from: accountThree});
 
     // Get final balances of the two accounts in Contract.
-    let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
-    let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
+    let accountTwoContractEndingBalance = await splitterInstance.balances(accountTwo);
+    let accountThreeContractEndingBalance = await splitterInstance.balances(accountThree);
 
     assert.isTrue(accountTwoContractEndingBalance.eq(amount.mul(two).div(five)), "Amount wasn't correctly withdrawn from Account 2");
     assert.isTrue(accountThreeContractEndingBalance.eq(new BN('0')), "Amount wasn't correctly withdrawn from Account 3");
@@ -59,17 +59,6 @@ contract('Splitter', (accounts) => {
     catch (err)
     {
       assert.include(err.toString(), 'Error: Invalid number of parameters for "getBalanceOf". Got 0 expected 1!');
-    }
-  })
-
-  it('Should only work if address is valid', async () => {
-    try
-    {
-      await splitterInstance.getBalanceOf(zeroAdd, {from: accountOne});
-    }
-    catch (err)
-    {
-      assert.include(err.toString(), 'check should be a valid address');
     }
   })
 
