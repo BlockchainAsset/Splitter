@@ -2,6 +2,8 @@ const BN = web3.utils.BN;
 
 const Splitter = artifacts.require("Splitter");
 
+const truffleAssert = require('truffle-assertions');
+
 const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
 const one = new BN('1');
 const two = new BN('2');
@@ -64,39 +66,30 @@ contract('Splitter', (accounts) => {
   });
 
   it('Should only work if amount is given', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
-      await splitterInstance.withdraw({from: accountTwo});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'invalid number value');
-    }
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw({from: accountTwo}),
+      null,
+      'invalid number value'
+    );
   })
 
   it('Should only work if amount > 0', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
-      await splitterInstance.withdraw(0, {from: accountTwo});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'Zero can\'t be withdrawn');
-    }
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw(0, {from: accountTwo}),
+      null,
+      'Zero can\'t be withdrawn'
+    );
   })
 
   it('Should only work if balance > amount', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
-      await splitterInstance.withdraw(amount, {from: accountTwo});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'Withdraw amount requested higher than balance');
-    }
+    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
+    await truffleAssert.fails(
+      splitterInstance.withdraw(amount, {from: accountTwo}),
+      null,
+      'Withdraw amount requested higher than balance'
+    );
   })
 
   it("Should correctly emit the proper event: Transfer", async () => {
@@ -106,10 +99,10 @@ contract('Splitter', (accounts) => {
     const splitterAddress = splitReceipt.logs[0].address;
 
     assert.strictEqual(withdrawReceipt.logs.length, 1);
-    assert.strictEqual(log.event, "Transfer");
-    assert.strictEqual(log.args._from, splitterAddress);
-    assert.strictEqual(log.args._to, accountTwo);
-    assert.isTrue(log.args._value.eq(amountByTwo));
+    assert.strictEqual(log.event, "Transfered");
+    assert.strictEqual(log.args.from, splitterAddress);
+    assert.strictEqual(log.args.to, accountTwo);
+    assert.isTrue(log.args.value.eq(amountByTwo));
   });
 
 });

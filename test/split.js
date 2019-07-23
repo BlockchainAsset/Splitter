@@ -2,6 +2,8 @@ const BN = web3.utils.BN;
 
 const Splitter = artifacts.require("Splitter");
 
+const truffleAssert = require('truffle-assertions');
+
 const amount = new BN(web3.utils.toWei('1')); // <-- Change ETH value to be tested here
 const one = new BN('1');
 const two = new BN('2');
@@ -62,47 +64,35 @@ contract('Splitter', (accounts) => {
   })
 
   it('Should Only work if more than 1 Wei is sent to split', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: one});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'amount should be greater than 1 wei');
-    }
+    await truffleAssert.fails(
+      splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: one}),
+      null,
+      'amount should be greater than 1 wei'
+    );
   })
   
   it('Should only work if two address are given', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, {from: accountOne, value: amount.add(one)});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'invalid address');
-    }
+    await truffleAssert.fails(
+      splitterInstance.split(accountTwo, {from: accountOne, value: amount.add(one)}),
+      null,
+      'invalid address'
+    );
   })
 
   it('Should Only work if First Address is valid', async () => {
-    try
-    {
-      await splitterInstance.split(zeroAdd, accountThree, {from: accountOne, value: amount.add(one)});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'bob should be a valid address');
-    }
+    await truffleAssert.fails(
+      splitterInstance.split(zeroAdd, accountThree, {from: accountOne, value: amount.add(one)}),
+      null,
+      'bob should be a valid address'
+    );
   })
 
   it('Should Only work if Second Address is valid', async () => {
-    try
-    {
-      await splitterInstance.split(accountTwo, zeroAdd, {from: accountOne, value: amount.add(one)});
-    }
-    catch (err)
-    {
-      assert.equal(err.reason, 'carol should be a valid address');
-    }
+    await truffleAssert.fails(
+      splitterInstance.split(accountTwo, zeroAdd, {from: accountOne, value: amount.add(one)}),
+      null,
+      'carol should be a valid address'
+    );
   })
 
   it("Should correctly emit the proper event: Splitted", async () => {
@@ -111,9 +101,9 @@ contract('Splitter', (accounts) => {
 
     assert.strictEqual(receipt.logs.length, 1);
     assert.strictEqual(log.event, "Splitted");
-    assert.strictEqual(log.args._bob, accountTwo);
-    assert.strictEqual(log.args._carol, accountThree);
-    assert.isTrue(log.args._value.eq(amountByTwo));
+    assert.strictEqual(log.args.bob, accountTwo);
+    assert.strictEqual(log.args.carol, accountThree);
+    assert.isTrue(log.args.value.eq(amount.add(one)));
   });  
 
 });

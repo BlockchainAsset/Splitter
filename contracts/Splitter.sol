@@ -8,8 +8,8 @@ contract Splitter is Stoppable{
 
     mapping (address => uint) public balances;
 
-    event Splitted(address indexed _bob, address indexed _carol, uint256 _value);
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Splitted(address indexed bob, address indexed carol, uint256 value);
+    event Transfered(address indexed from, address indexed to, uint256 value);
 
     constructor(bool initialRunState) public Stoppable(initialRunState){
     }
@@ -34,7 +34,7 @@ contract Splitter is Stoppable{
         balances[carol] = balances[carol].add(msgValueAmountByTwo);
         balances[msg.sender] = balances[msg.sender].add(remainingAmount);
 
-        emit Splitted(bob, carol, msgValueAmountByTwo);
+        emit Splitted(bob, carol, msg.value);
         return true;
 
     }
@@ -60,7 +60,7 @@ contract Splitter is Stoppable{
         // https://blog.ethereum.org/2016/06/10/smart-contract-security/
         balances[msg.sender] = balance.sub(amount);
 
-        emit Transfer(address(this), msg.sender, amount);
+        emit Transfered(address(this), msg.sender, amount);
 
         msg.sender.transfer(amount);
         return true;
