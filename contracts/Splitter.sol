@@ -6,7 +6,7 @@ import "./SafeMath.sol";
 contract Splitter is Stoppable{
     using SafeMath for uint;
 
-    mapping (address => uint) balances;
+    mapping (address => uint) public balances;
 
     event Splitted(address indexed _bob, address indexed _carol, uint256 _value);
     event Transfer(address indexed _from, address indexed _to, uint256 _value);

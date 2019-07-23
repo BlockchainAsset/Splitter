@@ -38,8 +38,8 @@ contract('Splitter', (accounts) => {
     await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
 
     // Get final balances of the two accounts in Contract.
-    let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
-    let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
+    let accountTwoContractEndingBalance = await splitterInstance.balances(accountTwo);
+    let accountThreeContractEndingBalance = await splitterInstance.balances(accountThree);
 
     // Check if the results are correct or not
     assert.isTrue(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
@@ -51,9 +51,9 @@ contract('Splitter', (accounts) => {
     await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
 
     // Get final balances of the two accounts in Contract.
-    let accountOneContractEndingBalance = await splitterInstance.getBalanceOf.call(accountOne);
-    let accountTwoContractEndingBalance = await splitterInstance.getBalanceOf.call(accountTwo);
-    let accountThreeContractEndingBalance = await splitterInstance.getBalanceOf.call(accountThree);
+    let accountOneContractEndingBalance = await splitterInstance.balances(accountOne);
+    let accountTwoContractEndingBalance = await splitterInstance.balances(accountTwo);
+    let accountThreeContractEndingBalance = await splitterInstance.balances(accountThree);
 
     // Check if the results are correct or not
     assert.isTrue(accountOneContractEndingBalance.eq(one), "Amount wasn't correctly received by Account 1");
