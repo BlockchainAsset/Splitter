@@ -4,19 +4,13 @@ ETH Community Blockstars 2.0's Project 1 - Splitter
 
 ## Specification
 
-Create a smart contract named Splitter whereby:
+Splitter is a smart contract in Ethereum written in Solidity, which is capable of working in the below scenario:
 
 - There are 3 people: Alice, Bob and Carol.
 - We can see the balance of the Splitter contract on the Web page.
 - Whenever Alice sends ether to the contract for it to be split, half of it goes to Bob and the other half to Carol.
 - We can see the balances of Alice, Bob and Carol on the Web page.
 - Alice can use the Web page to split her ether.
-
-Purposely left a lot to be decided. Such description approximates how your human project sponsors would describe the rules. As the Ethereum Smart Contract specialist, you have to think things through.
-
-That's it! This is where you put hand to keyboard.
-
-It would be even better if you could team up with different people impersonating Alice, Bob and Carol, all cooperating on a test net.
 
 ## How to Run the Project
 
@@ -30,7 +24,11 @@ After you clone the repo, please make change to _truffle-config.js_ according to
 
 For more info on that, you can go to: [Truffle Configuration](https://truffleframework.com/docs/advanced/configuration)
 
-3. After that, please unlock your Ether Wallet Account to Deploy this contract in the desired network
+3. Now start your blockchain using:
+
+`ganache-cli --host 0.0.0.0`
+
+If you are running your own blockchain/using test blockchain, please don't forget to unlock your Ether Wallet Account to Deploy this contract in the desired network
 
 4. Then using `truffle migrate` you can deploy the contract.
 
@@ -46,14 +44,12 @@ For more info on that, you can go to: [Truffle Configuration](https://trufflefra
 
 Minimum of 3 Accounts *(accounts[0], accounts[1], accounts[2], see test/splitter.js)* should be setup with balances for contract testing. If running `ganache-cli`, it will be taken automatically.
 
-**NOTE**: To run a specific test js file, use `truffle test test/filename.js` where filename is the name of file.
+**NOTE**: To run a specific test js file, use `truffle test test/filename.js`
 
 7. For checking files in Web, please install the required files using: `npm i`
 
-8. In one terminal, start your blockchain:
-`ganache-cli --host 0.0.0.0`
+8. In a terminal,
 
-In another terminal:
 ```
 ./node_modules/.bin/truffle migrate
 
@@ -63,6 +59,8 @@ npx http-server ./build/app/ -a 0.0.0.0 -p 8000 -c-1
 ```
 
 9. Now, in your browser, open [http://127.0.0.1:8000](http://127.0.0.1:8000) or the address shown to you in your console.
+
+**NOTE**: If you are using `ganache-cli` for blockchain, please disable MetaMask for checking this project.
 
 ## Note
 
