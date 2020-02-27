@@ -53,45 +53,19 @@ contract('Splitter', (accounts) => {
     await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount.add(one)});
 
     // Get final balances of the two accounts in Contract.
-    let accountOneContractEndingBalance = await splitterInstance.balances(accountOne);
     let accountTwoContractEndingBalance = await splitterInstance.balances(accountTwo);
     let accountThreeContractEndingBalance = await splitterInstance.balances(accountThree);
 
     // Check if the results are correct or not
-    assert.isTrue(accountOneContractEndingBalance.eq(one), "Amount wasn't correctly received by Account 1");
     assert.isTrue(accountTwoContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 2");
     assert.isTrue(accountThreeContractEndingBalance.eq(amountByTwo), "Amount wasn't correctly received by Account 3");
   })
 
-  it('Should Only work if more than 1 Wei is sent to split', async () => {
-    await truffleAssert.fails(
-      splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: one}),
-      null,
-      'amount should be greater than 1 wei'
-    );
-  })
-  
   it('Should only work if two address are given', async () => {
     await truffleAssert.fails(
       splitterInstance.split(accountTwo, {from: accountOne, value: amount.add(one)}),
       null,
       'invalid address'
-    );
-  })
-
-  it('Should Only work if First Address is valid', async () => {
-    await truffleAssert.fails(
-      splitterInstance.split(zeroAdd, accountThree, {from: accountOne, value: amount.add(one)}),
-      null,
-      'bob should be a valid address'
-    );
-  })
-
-  it('Should Only work if Second Address is valid', async () => {
-    await truffleAssert.fails(
-      splitterInstance.split(accountTwo, zeroAdd, {from: accountOne, value: amount.add(one)}),
-      null,
-      'carol should be a valid address'
     );
   })
 
@@ -101,9 +75,9 @@ contract('Splitter', (accounts) => {
 
     assert.strictEqual(receipt.logs.length, 1);
     assert.strictEqual(log.event, "Splitted");
-    assert.strictEqual(log.args.bob, accountTwo);
-    assert.strictEqual(log.args.carol, accountThree);
-    assert.isTrue(log.args.value.eq(amount.add(one)));
+    assert.strictEqual(log.args._first, accountTwo);
+    assert.strictEqual(log.args._second, accountThree);
+    assert.isTrue(log.args._value.eq(amount.add(one)));
   });  
 
 });

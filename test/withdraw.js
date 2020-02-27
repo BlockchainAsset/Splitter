@@ -74,21 +74,12 @@ contract('Splitter', (accounts) => {
     );
   })
 
-  it('Should only work if amount > 0', async () => {
-    await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
-    await truffleAssert.fails(
-      splitterInstance.withdraw(0, {from: accountTwo}),
-      null,
-      'Zero can\'t be withdrawn'
-    );
-  })
-
   it('Should only work if balance > amount', async () => {
     await splitterInstance.split(accountTwo, accountThree, {from: accountOne, value: amount});
     await truffleAssert.fails(
       splitterInstance.withdraw(amount, {from: accountTwo}),
       null,
-      'Withdraw amount requested higher than balance'
+      'SafeMath: subtraction overflow.'
     );
   })
 
@@ -101,8 +92,8 @@ contract('Splitter', (accounts) => {
     assert.strictEqual(withdrawReceipt.logs.length, 1);
     assert.strictEqual(log.event, "Transfered");
     assert.strictEqual(log.address, splitterAddress);
-    assert.strictEqual(log.args.to, accountTwo);
-    assert.isTrue(log.args.value.eq(amountByTwo));
+    assert.strictEqual(log.args._to, accountTwo);
+    assert.isTrue(log.args._value.eq(amountByTwo));
   });
 
 });
