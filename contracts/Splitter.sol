@@ -7,10 +7,9 @@
 
 pragma solidity >=0.4.22 <0.6.0;
 
-import "./Owned.sol";
 import "./SafeMath.sol";
 
-contract Splitter is Owned{
+contract Splitter{
     using SafeMath for uint;
 
     // **************************** //
