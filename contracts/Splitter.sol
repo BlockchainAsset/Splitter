@@ -7,10 +7,10 @@
 
 pragma solidity >=0.4.22 <0.6.0;
 
-import "./Stoppable.sol";
+import "./Owned.sol";
 import "./SafeMath.sol";
 
-contract Splitter is Stoppable{
+contract Splitter is Owned{
     using SafeMath for uint;
 
     // **************************** //
@@ -41,10 +41,8 @@ contract Splitter is Stoppable{
 
     /**
      *  @dev Constructor
-     *  @notice Initializes the current state of the contract when deployed
-     *  @param _initialRunState The state at which the contract should be initialized
      */
-    constructor(bool _initialRunState) public Stoppable(_initialRunState){
+    constructor() public {
     }
 
     // **************************** //
@@ -57,30 +55,10 @@ contract Splitter is Stoppable{
     *   @param _second The address of second receiver
      *  @return Returns the status of the Operation
     */
-    function split(address _first, address _second) public onlyIfRunning payable returns(bool _status){
-
-        /*
-         * These checks were removed on the later stage
-        */
-        // require(_first != address(0), "_first should be a valid address");
-        // require(_second != address(0), "_second should be a valid address");
-
-        /*
-         * This check was removed, because if the user sends with zero value
-         * it won't have any effect other than some gas utilization
-        */
-        // To check if the amount to be send is positive or not.
-        // require(msg.value > 1, "amount should be greater than 1 wei");
+    function split(address _first, address _second) public payable returns(bool _status){
 
         // To divide the amount to be send to _first and _second
         uint msgValueAmountByTwo = msg.value.div(2);
-
-        /*
-         * The below is removed because the gas utilization for this calculation
-         * will be more than the calculation done.
-        */
-        // If the amount to be divided is not perfectly divided by two
-        // uint remainingAmount = msg.value.mod(2);
 
         // Balances of _first and _second is updated
         balances[_first] = balances[_first].add(msgValueAmountByTwo);
@@ -97,21 +75,9 @@ contract Splitter is Stoppable{
     *   @param _amount The amount to withdraw
     *   @return _status in bool
     */
-    function withdraw(uint _amount) public onlyIfRunning returns(bool _status){
-
-        /*
-         * The below is removed because someone tries to withdraw zero,
-         * it won't hurt the contract.
-        */
-        // require(_amount > 0, "Zero can't be withdrawn");
+    function withdraw(uint _amount) public returns(bool _status){
 
         uint balance = balances[msg.sender];
-
-        /*
-         * The below is removed because line 116 will revert if someone
-         * tries to withdraw balance more than he have.
-        */
-        // require(balance >= _amount, "Withdraw amount requested higher than balance");
 
         balances[msg.sender] = balance.sub(_amount);
 
