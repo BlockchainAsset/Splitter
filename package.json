@@ -10,7 +10,7 @@
     "bluebird": "^3.5.5",
     "openzeppelin-solidity": "2.2.0",
     "create-html": "^4.1.0",
-    "eslint": "^6.0.1",
+    "eslint": "^7.13.0",
     "truffle-assertions": "^0.9.1",
     "jquery": "3.5.0",
     "truffle-contract": "4.0.23",
