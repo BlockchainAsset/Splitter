@@ -17,7 +17,7 @@
     "web3": "^1.0.0-beta.55"
   },
   "devDependencies": {
-    "chai": "4.2.0",
+    "chai": "4.3.0",
     "chai-as-promised": "7.1.1",
     "file-loader": "^6.2.0",
     "truffle": "^5.0.8",
