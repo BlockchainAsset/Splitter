@@ -1,16 +1,21 @@
+const ganache = require("ganache-core");
+
 module.exports = {
+	contracts_directory: "./contracts",
+	contracts_build_directory: "./build/contracts",
+	test_directory: "./test",
 
   networks: {
     development: { // This one is optional and reduces the scope for failing fast
       host: "localhost",
       port: 8545,
-      network_id: "*" // Match any network id
-      //gas: 500000
-    },
-    net42: {
-      host: "localhost",
-      port: 8545,
-      network_id: 42
+      network_id: "*", // Match any network id
+      //gas: 500000,
+			provider: ganache.provider({
+				gasLimit: 6800000,
+				gasPrice: 20000000000,
+				default_balance_ether: 10000000000000000000,
+			}),
     },
     ropsten: {
       host: "127.0.0.1",

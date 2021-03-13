@@ -8,11 +8,12 @@
   },
   "dependencies": {
     "bluebird": "^3.5.5",
-    "openzeppelin-solidity": "3.4.1",
     "create-html": "^4.1.0",
     "eslint": "^7.13.0",
-    "truffle-assertions": "^0.9.1",
+    "ganache-core": "^2.13.2",
     "jquery": "3.6.0",
+    "openzeppelin-solidity": "3.4.1",
+    "truffle-assertions": "^0.9.1",
     "truffle-contract": "4.0.31",
     "web3": "^1.0.0-beta.55"
   },
@@ -25,7 +26,7 @@
     "webpack-cli": "^4.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "truffle test"
   },
   "repository": {
     "type": "git",
