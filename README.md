@@ -1,4 +1,5 @@
 # Splitter
+[![Build Status](https://travis-ci.com/remedcu/Splitter.svg?branch=master)](https://travis-ci.com/remedcu/Splitter) [![Coverage Status](https://coveralls.io/repos/github/remedcu/Splitter/badge.svg?branch=master)](https://coveralls.io/github/remedcu/Splitter?branch=master)
 
 ETH Community Blockstars 2.0's Project 1 - Splitter
 
