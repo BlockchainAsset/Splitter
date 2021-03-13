@@ -1,10 +1,10 @@
 module.exports = {
-    entry: "./app/js/app.js",
-    output: {
-        path: __dirname + "/build/app/js",
-        filename: "app.js"
-    },
-    module: {
-        rules: []
-    }
+	entry: "./app/js/app.js",
+	output: {
+		path: __dirname + "/build/app/js",
+		filename: "app.js",
+	},
+	module: {
+		rules: [],
+	},
 };
