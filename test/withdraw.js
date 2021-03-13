@@ -70,7 +70,7 @@ contract('Splitter', (accounts) => {
     await truffleAssert.fails(
       splitterInstance.withdraw({from: accountTwo}),
       null,
-      'invalid number value'
+      'invalid BigNumber value'
     );
   })
 
