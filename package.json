@@ -1,7 +1,7 @@
 {
 	"name": "splitter",
 	"version": "1.0.0",
-	"description": "ETH Community Blockstars 2.0's Project 1 - Splitter",
+	"description": "Smart Contract to split ethereum to two different address equally.",
 	"main": "truffle-config.js",
 	"directories": {
 		"test": "test"
