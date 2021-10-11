@@ -9,7 +9,7 @@
 	"dependencies": {
 		"bluebird": "^3.5.5",
 		"create-html": "^4.1.0",
-		"eslint": "^7.13.0",
+		"eslint": "^8.0.0",
 		"ganache-core": "^2.13.2",
 		"jquery": "3.6.0",
 		"openzeppelin-solidity": "4.3.2",
