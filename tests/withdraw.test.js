@@ -84,7 +84,7 @@ contract("Splitter", (accounts) => {
 			from: accountOne,
 			value: amount,
 		});
-		await truffleAssert.fails(splitterInstance.withdraw(amount, { from: accountTwo }), null, "SafeMath: subtraction overflow.");
+		await truffleAssert.fails(splitterInstance.withdraw(amount, { from: accountTwo }), null, "SafeMath: subtraction overflow");
 	});
 
 	it("Should correctly emit the proper event: Transfer", async () => {
