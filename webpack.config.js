@@ -9,13 +9,13 @@ module.exports = {
 	},
 	resolve: {
 		fallback: {
-			"assert": false,
-			"crypto": false,
-			"http": false,
-			"https": false,
-			"os": false,
-			"stream": false,
-			"url": false,
-		}
-	}
+			assert: false,
+			crypto: false,
+			http: false,
+			https: false,
+			os: false,
+			stream: false,
+			url: false,
+		},
+	},
 };

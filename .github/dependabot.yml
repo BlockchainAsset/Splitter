@@ -1,14 +1,14 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: chai
-    versions:
-    - 4.3.1
-  - dependency-name: openzeppelin-solidity
-    versions:
-    - 3.3.0
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: chai
+        versions:
+          - 4.3.1
+      - dependency-name: openzeppelin-solidity
+        versions:
+          - 3.3.0
