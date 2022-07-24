@@ -5,7 +5,7 @@
  *  @dev Takes an ETH input and divides it to two specified address
  */
 
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity ^0.5.8;
 
 import "./SafeMath.sol";
 
