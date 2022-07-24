@@ -1,4 +1,5 @@
 # Splitter
+
 [![Build Status](https://travis-ci.com/remedcu/Splitter.svg?branch=master)](https://travis-ci.com/remedcu/Splitter) [![Coverage Status](https://coveralls.io/repos/github/remedcu/Splitter/badge.svg?branch=master)](https://coveralls.io/github/remedcu/Splitter?branch=master)
 
 ETH Community Blockstars 2.0's Project 1 - Splitter
@@ -13,11 +14,15 @@ Splitter is a smart contract in Ethereum written in Solidity, which is capable o
 - We can see the balances of Alice, Bob and Carol on the Web page.
 - Alice can use the Web page to split her ether.
 
+## UML Diagram
+
+![UML Diagram](UML.svg)
+
 ## How to Run the Project
 
 1. First clone this repo
 
-`git clone https://github.com/remedcu/blockstars.git`
+`git clone https://github.com/BlockchainAsset/Splitter.git`
 
 2. Install all the dependencies using: `npm i`
 
