@@ -68,7 +68,7 @@
 		"openzeppelin-solidity": "4.6.0",
 		"prettier": "^2.7.1",
 		"prettier-plugin-solidity": "^1.0.0-dev.23",
-		"sol2uml": "^2.0.3",
+		"sol2uml": "^2.0.4",
 		"solhint": "^3.0.0",
 		"solhint-plugin-prettier": "^0.0.5",
 		"solidity-coverage": "^0.7.21",
