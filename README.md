@@ -1,6 +1,6 @@
 # Splitter
 
-[![Build Status](https://travis-ci.com/remedcu/Splitter.svg?branch=master)](https://travis-ci.com/remedcu/Splitter) [![Coverage Status](https://coveralls.io/repos/github/remedcu/Splitter/badge.svg?branch=master)](https://coveralls.io/github/remedcu/Splitter?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/BlockchainAsset/Splitter/badge.svg?branch=master)](https://coveralls.io/github/BlockchainAsset/Splitter?branch=master)
 
 ETH Community Blockstars 2.0's Project 1 - Splitter
 
@@ -29,20 +29,6 @@ Splitter is a smart contract in Ethereum written in Solidity, which is capable o
 3. To run the test, please use `npm run test`
 
 4. To check code coverage, please use: `npm run coverage`
-
-5. In a terminal,
-
-```
-./node_modules/.bin/truffle migrate
-
-./node_modules/.bin/webpack-cli --mode development
-
-npx http-server ./build/app/ -a 0.0.0.0 -p 8000 -c-1
-```
-
-6. Now, in your browser, open [http://127.0.0.1:8000](http://127.0.0.1:8000) or the address shown to you in your console.
-
-**NOTE**: If you are using `ganache-cli` for blockchain, please disable MetaMask for checking this project.
 
 ## Note
 
