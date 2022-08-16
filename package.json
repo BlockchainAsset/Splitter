@@ -53,7 +53,7 @@
 		"eslint": "^8.22.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-truffle": "^0.3.1",
-		"ganache": "^7.4.0",
+		"ganache": "^7.4.1",
 		"hardhat": "^2.10.1",
 		"hardhat-abi-exporter": "^2.10.0",
 		"hardhat-contract-sizer": "^2.6.1",
