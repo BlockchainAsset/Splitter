@@ -45,7 +45,7 @@
 		"@nomiclabs/hardhat-ganache": "^2.0.1",
 		"@nomiclabs/hardhat-truffle5": "^2.0.6",
 		"@nomiclabs/hardhat-web3": "^2.0.0",
-		"@openzeppelin/test-helpers": "^0.5.15",
+		"@openzeppelin/test-helpers": "^0.5.16",
 		"@truffle/contract": "^4.5.23",
 		"chai": "4.3.6",
 		"chai-as-promised": "7.1.1",
