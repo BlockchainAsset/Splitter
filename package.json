@@ -68,7 +68,7 @@
 		"solhint": "^3.3.7",
 		"solhint-plugin-prettier": "^0.0.5",
 		"solidity-coverage": "^0.7.22",
-		"truffle": "^5.5.31",
+		"truffle": "^5.5.32",
 		"truffle-assertions": "^0.9.2",
 		"web3": "^1.8.0"
 	}
