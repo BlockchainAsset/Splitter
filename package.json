@@ -63,7 +63,7 @@
 		"hardhat-log-remover": "^2.0.2",
 		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
-		"prettier-plugin-solidity": "^1.0.0-dev.23",
+		"prettier-plugin-solidity": "^1.0.0-dev.24",
 		"sol2uml": "^2.2.4",
 		"solhint": "^3.3.7",
 		"solhint-plugin-prettier": "^0.0.5",
