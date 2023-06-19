@@ -1,7 +1,9 @@
 node_modules
-build
-artifacts
 coverage
 coverage.json
 .DS_Store
 cache
+script
+out
+.vscode
+yarn.lock

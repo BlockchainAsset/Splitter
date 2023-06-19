@@ -5,10 +5,3 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: chai
-        versions:
-          - 4.3.1
-      - dependency-name: openzeppelin-solidity
-        versions:
-          - 3.3.0
