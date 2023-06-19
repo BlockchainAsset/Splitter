@@ -25,6 +25,8 @@ jobs:
         run: yarn install
       - name: Checking Formatting
         run: yarn lint && yarn prettier-check
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
       - name: Code Coverage
         run: yarn coverage
       - name: Coveralls GitHub Action
