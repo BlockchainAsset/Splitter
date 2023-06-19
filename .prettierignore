@@ -1,8 +1,9 @@
-build/
-reports/
 node_modules/
 package-lock.json
 coverage
 coverage.json
-artifacts
 cache
+lib
+out
+.github
+.vscode

@@ -18,22 +18,17 @@ Splitter is a smart contract in Ethereum written in Solidity, which is capable o
 
 ![UML Diagram](UML.svg)
 
-## How to Run the Project
+## Test
 
-1. First clone this repo
+To run the test, please use `forge test`
 
-`git clone https://github.com/BlockchainAsset/Splitter.git`
+## Coverage
 
-2. Install all the dependencies using: `npm i`
-
-3. To run the test, please use `npm run test`
-
-4. To check code coverage, please use: `npm run coverage`
+To check code coverage, please use: `forge coverage`
 
 ## Note
 
 - This is a prototype, please don't use it unless you know what you are doing.
 - A lot can be improved in this. Feedbacks are welcome.
-- Don't forget to unlock ether wallet accounts when required.
 
 ## Thank You for checking out! Star if this helped you in anyway!
