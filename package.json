@@ -18,7 +18,7 @@
 	},
 	"scripts": {
 		"analyze-contracts": "slither .",
-		"coverage": "forge coverage",
+		"coverage": "forge coverage --report lcov",
 		"lint": "solhint ./src/*.sol",
 		"prettier": "prettier --write .",
 		"prettier-check": "prettier --check .",
