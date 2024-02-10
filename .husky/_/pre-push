@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+yarn prettier-check
+yarn test
