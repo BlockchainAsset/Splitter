@@ -7,3 +7,4 @@ script
 out
 .vscode
 yarn.lock
+lcov.info
