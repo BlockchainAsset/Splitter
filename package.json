@@ -22,8 +22,7 @@
 		"prettier": "prettier --write .",
 		"prettier-check": "prettier --check .",
 		"test": "forge test",
-		"uml": "npx sol2uml ./src -o UML.svg",
-		"postinstall": "husky"
+		"uml": "npx sol2uml ./src -o UML.svg"
 	},
 	"husky": {
 		"hooks": {
@@ -32,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"yarn": "^1.22.10"
+		"yarn": "1.22.21"
 	},
 	"devDependencies": {
 		"coveralls": "3.1.1",
