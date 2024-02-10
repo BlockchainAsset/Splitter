@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity 0.8.23;
 
 import "forge-std/Test.sol";
 import "../src/Splitter.sol";
@@ -81,7 +81,7 @@ contract SplitterTest is Test {
 	}
 
 	function testWithdrawZero() public {
-		vm.expectRevert();
+		vm.expectRevert(bytes4(keccak256("ZeroAmountNotAllowed()")));
 		vm.prank(bob);
 		splitter.withdraw(0);
 	}
