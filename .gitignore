@@ -7,3 +7,4 @@ script
 out
 .vscode
 lcov.info
+.certora_internal

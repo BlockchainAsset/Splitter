@@ -4,6 +4,7 @@
 	"rules": {
 		"prettier/prettier": "error",
 		"max-line-length": ["warn", 140],
-		"compiler-version": ["error", "^0.8.23"]
+		"compiler-version": "off",
+		"no-empty-blocks": "off"
 	}
 }
