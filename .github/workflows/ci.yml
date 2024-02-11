@@ -1,0 +1,54 @@
+name: Splitter-CI
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Installing Packages
+        run: yarn install --frozen-lockfile
+      - name: Checking Formatting
+        run: yarn lint && yarn prettier-check
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Installing Packages
+        run: yarn install --frozen-lockfile
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+      - name: Testing
+        run: yarn test
+
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Installing Packages
+        run: yarn install --frozen-lockfile
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+      - name: Code Coverage
+        run: yarn coverage
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./lcov.info
