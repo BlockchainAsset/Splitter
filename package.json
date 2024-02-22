@@ -41,6 +41,6 @@
 		"sol2uml": "2.5.20",
 		"solhint": "4.1.1",
 		"solhint-plugin-prettier": "0.1.0",
-		"solidity-coverage": "0.8.7"
+		"solidity-coverage": "0.8.8"
 	}
 }
